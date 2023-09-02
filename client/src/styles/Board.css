@@ -1,0 +1,24 @@
+/* Board.css */
+.board-container {
+    padding: 20px;
+  }
+  
+  .create-button {
+    margin-bottom: 20px;
+  }
+  
+  .post-table {
+    width: 100%;
+  }
+  
+  .post-row:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* 다른 필요한 스타일 추가 가능 */
+  
