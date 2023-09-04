@@ -8,7 +8,7 @@ router.post('/', postController.createPost);
 // 모든 게시물 조회 (Read)
 router.get('/', postController.getAllPosts);
 
-// 게시물 조회 (Read) by 게시물ID
+// 게시물 조회 (Read) by 유저ID
 router.get('/:id', postController.getPostByPostId);
 
 // 게시물 조회 (Read) by 게시물ID

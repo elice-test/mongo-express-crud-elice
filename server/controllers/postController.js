@@ -1,6 +1,8 @@
 const Post = require('../models/postModel'); // Post 모델을 가져옵니다.
 
 // 게시물 생성 (Create)
+// @end-point : host/api/posts/
+// @method : post
 exports.createPost = async (req, res) => {
   try {
     const { title, content, author, category } = req.body;
@@ -13,6 +15,8 @@ exports.createPost = async (req, res) => {
 };
 
 // 모든 게시물 조회 (Read)
+// @end-point : host/api/posts/
+// @method : get
 exports.getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find();
@@ -23,7 +27,9 @@ exports.getAllPosts = async (req, res) => {
   }
 };
 
-// 게시물 조회 (Read) by ID
+// 게시물 조회 (Read) by user_ID
+// @end-point : host/api/posts/by-author/:id
+// @method : get
 exports.getPostByPostId = async (req, res) => {
   try {
     const postId = req.params.id;
@@ -43,6 +49,9 @@ exports.getPostByPostId = async (req, res) => {
   }
 };
 
+// 게시물 조회 (Read) by post_id
+// @end-point : host/api/posts/:id
+// @method : get
 exports.getPostByAuthorId = async (req, res) => {
   try {
     const authorId = req.params.id;
@@ -61,6 +70,8 @@ exports.getPostByAuthorId = async (req, res) => {
 
 
 // 게시물 수정 (Update)
+// @end-point : host/api/posts/:id
+// @method : put
 exports.updatePost = async (req, res) => {
   try {
     const postId = req.params.id;
@@ -76,6 +87,8 @@ exports.updatePost = async (req, res) => {
 };
 
 // 게시물 삭제 (Delete)
+// @end-point : host/api/posts/:id
+// @method : delete
 exports.deletePost = async (req, res) => {
   try {
     const postId = req.params.id;
