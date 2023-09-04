@@ -49,10 +49,8 @@ exports.getPostByAuthorId = async (req, res) => {
     const post = await Post.find({author:authorId});
 
     if (!post) {
-      return res.status(404).json({ error: '해당 ID의 게시물을 찾을 수 없습니다.' });
+      return res.status(404).json({ error: '해당 유저의 게시물을 찾을 수 없습니다.' });
     }
-
-  
 
     res.status(200).json(post);
   } catch (error) {
