@@ -75,8 +75,8 @@ exports.getPostByAuthorId = async (req, res) => {
 exports.updatePost = async (req, res) => {
   try {
     const postId = req.params.id;
-    const { title, content, author } = req.body;
-    const updatedPost = await Post.findByIdAndUpdate(postId, { title, content, author }, { new: true });
+    const { title, content,category, author } = req.body;
+    const updatedPost = await Post.findByIdAndUpdate(postId, { title, content, category,author }, { new: true });
     if (!updatedPost) {
       return res.status(404).json({ error: '해당 ID의 게시물을 찾을 수 없습니다.' });
     }

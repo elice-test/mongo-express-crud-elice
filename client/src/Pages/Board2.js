@@ -1,17 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Table, Modal, Form } from 'react-bootstrap';
 import axios from 'axios';
-import dayjs from 'dayjs';
-import { Link } from "react-router-dom";
 import '../styles/Board.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-function formatDate(inputDate) {
-    const formattedDate = dayjs(inputDate).format('YYYY-MM-DD HH:mm');
-    return formattedDate;
-  }
-
-
 const Board = () => {
     const [posts, setPosts] = useState([
         { id: 1, title: '게시글 1', author: '글쓴이 1', date: '2023-09-01', views: 100, likes: 20, content: '게시글 내용 1' },
@@ -67,16 +58,17 @@ const Board = () => {
                         <th>글쓴이</th>
                         <th>날짜</th>
                         <th>조회수</th>
-                        
+                        <th>좋아요 개수</th>
                     </tr>
                 </thead>
                 <tbody>
                     {posts.map((post) => (
-                        <tr key={post._id} >
-                            <td ><Link to={`/posts/${post._id}`}>{post.title}</Link></td>
+                        <tr key={post._id} onClick={() => handlePostClick(post.content)}>
+                            <td>{post.title}</td>
                             <td>{post.author}</td>
-                            <td>{formatDate(post.createdAt)}</td>
+                            <td>{post.createdAt}</td>
                             <td>{post.view}</td>
+                            <td>{post.likes}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -99,15 +91,6 @@ const Board = () => {
                         </Form.Group>
                         <Form.Group controlId="author">
                             <Form.Label>글쓴이</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="글쓴이를 입력하세요"
-                                value={newPost.author}
-                                onChange={(e) => setNewPost({ ...newPost, author: e.target.value })}
-                            />
-                        </Form.Group>
-                        <Form.Group controlId="author">
-                            <Form.Label>카테고리</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="글쓴이를 입력하세요"
