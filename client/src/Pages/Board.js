@@ -77,7 +77,7 @@ const Board = () => {
         </tbody>
       </Table>
 
-      {/* 페이지네이션 컴포넌트 */}
+      
       <div className='text-center'>
         <Button className="opacity-75" onClick={() => { handlePageChange(currentPage - 1) }}>이전</Button>
         {currentPage}
