@@ -9,14 +9,14 @@ const postSchema = new mongoose.Schema({
     content: {
         type: String,
         required: true,
-    },
+    },  
     author: {
         type: String,
         required: true,
     },
     view: {
         type: Number,
-        default: 0,
+        default: 0
     },
     category:{
         type:[String]
