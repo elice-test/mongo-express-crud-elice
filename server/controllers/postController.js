@@ -99,19 +99,19 @@ exports.getPostByAuthorId = async (req, res) => {
 // 게시물 수정 (Update)
 // @end-point : host/api/posts/:id
 // @method : put
-exports.updatePost = async (req, res) => {
-  try {
-    const postId = req.params.id;
-    const { title, content,category, author } = req.body;
-    const updatedPost = await Post.findByIdAndUpdate(postId, { title, content, category,author }, { new: true });
-    if (!updatedPost) {
-      return res.status(404).json({ error: '해당 ID의 게시물을 찾을 수 없습니다.' });
+  exports.updatePost = async (req, res) => {
+    try {
+      const postId = req.params.id;
+      const { title, content,category } = req.body;
+      const updatedPost = await Post.findByIdAndUpdate(postId, { title, content, category }, { new: true });
+      if (!updatedPost) {
+        return res.status(404).json({ error: '해당 ID의 게시물을 찾을 수 없습니다.' });
+      }
+      res.status(200).json(updatedPost);
+    } catch (error) {
+      res.status(500).json({ error: '게시물을 수정하는 중에 오류가 발생했습니다.' });
     }
-    res.status(200).json(updatedPost);
-  } catch (error) {
-    res.status(500).json({ error: '게시물을 수정하는 중에 오류가 발생했습니다.' });
-  }
-};
+  };
 
 // 게시물 삭제 (Delete)
 // @end-point : host/api/posts/:id

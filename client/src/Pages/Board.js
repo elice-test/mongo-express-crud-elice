@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../styles/Board.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 function formatDate(inputDate) {
   const formattedDate = dayjs(inputDate).format('YYYY-MM-DD HH:mm');
   return formattedDate;
@@ -17,7 +18,7 @@ const Board = () => {
   const perpage = 10; // 페이지당 항목 수 (고정)
   const [maxPage, setMaxPage] = useState(100);
 
-  const fetchData = () => {
+  const fetchData = async () => {
     console.log("페이지요청 시작", currentPage, perpage);
     if (currentPage == 0) {
       setCurrentPage(1)
@@ -27,7 +28,7 @@ const Board = () => {
       setCurrentPage(crnt => crnt - 1)
       return;
     }
-    axios
+    await axios
       .get(`http://localhost:3000/api/posts?page=${currentPage}&perpage=${perpage}`)
       .then((response) => {
         setPosts(response.data.posts);
@@ -47,7 +48,7 @@ const Board = () => {
   };
 
   return (
-    <Card>
+    <Card className='board-container'>
 
       <Table striped bordered hover>
         <thead>
@@ -57,6 +58,7 @@ const Board = () => {
             <th>글쓴이</th>
             <th>날짜</th>
             <th>조회수</th>
+            <th>카테고리</th>
           </tr>
         </thead>
         <tbody>
@@ -69,6 +71,7 @@ const Board = () => {
               <td>{post.author}</td>
               <td>{formatDate(post.createdAt)}</td>
               <td>{post.view}</td>
+              <td>{post.category.map((e) => { return <span key={e} className="badge bg-secondary ms-2">{e}</span> })}</td>
             </tr>
           ))}
         </tbody>
@@ -81,7 +84,7 @@ const Board = () => {
         <Button className="opacity-75" onClick={() => { handlePageChange(currentPage + 1) }} >다음</Button>
       </div>
       <span className='text-end'>
-        <Button >글쓰기</Button>
+        <Button className='btn btn-success mx-5'>글쓰기</Button>
       </span>
     </Card>
   );

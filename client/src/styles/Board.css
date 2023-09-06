@@ -1,6 +1,8 @@
 /* Board.css */
 .board-container {
     padding: 20px;
+    padding-left: 10%; /* 페이지 왼쪽 끝에 10% 여백 추가 */
+  padding-right: 10%; 
   }
   
   .create-button {
