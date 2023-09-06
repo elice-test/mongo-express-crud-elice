@@ -38,7 +38,7 @@ function Content() {
                                     <p className="text-muted text-right">글쓴이: {crntPost.author}</p>
                                     <p className="text-muted text-right">조회수: {crntPost.view}</p>
                                     <p className="text-muted text-right">카테고리: {crntPost.category.map((e) => { return <span key={e}>{`${e} `}</span> })}</p>
-                                    <Link to={`/edit/${crntPost.author}/${crntPost._id}`}><Button>수정</Button>{' '}</Link>
+                                    <Link  to={`/edit/${crntPost.author}/${crntPost._id}`}><Button>수정</Button>{' '}</Link>
                                     <Button variant="danger">삭제</Button>
                                 </Col>
                                 

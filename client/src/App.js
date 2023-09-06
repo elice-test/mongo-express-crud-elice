@@ -15,6 +15,9 @@ import {
 function App() {
   return (
     <Router>
+      <div className='text-center'>
+      <Link style={{textDecoration:'None',color:'black'}} to='/posts'><h2>게시판 이동</h2></Link>
+      </div>
       <Routes>
         <Route path="/posts" element={<Board></Board>}></Route>
         <Route path="/posts/:post_id" element={<Content></Content>}></Route>
