@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import '../styles/Content.css'
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 
 
 function Content() {
+    const navigate = useNavigate();
     const { post_id } = useParams();
     const [crntPost, setCrntPost] = useState(null);
 
@@ -38,10 +39,10 @@ function Content() {
                                     <p className="text-muted text-right">글쓴이: {crntPost.author}</p>
                                     <p className="text-muted text-right">조회수: {crntPost.view}</p>
                                     <p className="text-muted text-right">카테고리: {crntPost.category.map((e) => { return <span key={e} className="badge bg-secondary ms-2">{e}</span> })}</p>
-                                    <Link  to={`/edit/${crntPost.author}/${crntPost._id}`}><Button>수정</Button>{' '}</Link>
+                                    <Link to={`/edit/${crntPost.author}/${crntPost._id}`}><Button>수정</Button>{' '}</Link>
                                     <Button variant="danger">삭제</Button>
                                 </Col>
-                                
+
                             </Row>
 
                         </Card.Header>
@@ -50,6 +51,11 @@ function Content() {
                         </Card.Body>
                     </Card>
                 </Container>
+                <div className='text-center'>
+                    <Button className='ms-2' variant="danger" onClick={() => { navigate(-1) }}>
+                        뒤로가기
+                    </Button>
+                </div>
 
             </div > : <p></p>
             }

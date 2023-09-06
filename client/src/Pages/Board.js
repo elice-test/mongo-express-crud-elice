@@ -84,7 +84,7 @@ const Board = () => {
         <Button className="opacity-75" onClick={() => { handlePageChange(currentPage + 1) }} >다음</Button>
       </div>
       <span className='text-end'>
-        <Button className='btn btn-success mx-5'>글쓰기</Button>
+       <Link to='/posts/write'> <Button className='btn btn-success mx-5'>글쓰기</Button></Link>
       </span>
     </Card>
   );
