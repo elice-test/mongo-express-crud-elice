@@ -14,18 +14,21 @@ exports.createPost = async (req, res) => {
   }
 };
 
+
 // 모든 게시물 조회 (Read)
 // @end-point : host/api/posts/
 // @method : get
+// 1) pagination사용 안한 코드
 // exports.getAllPosts = async (req, res) => {
 //   try {
 //     const posts = await Post.find();
-//     console.log("getAllPosts",posts[0].id);
 //     res.status(200).json(posts);
 //   } catch (error) {
 //     res.status(500).json({ error: '게시물을 조회하는 중에 오류가 발생했습니다.' });
 //   }
 // };
+
+// 2) pagination 사용한 코드
 exports.getAllPosts = async (req, res) => {
   try {
     const { page, perpage } = req.query; // 쿼리 파라미터에서 page와 perpage를 추출
@@ -55,7 +58,7 @@ exports.getAllPosts = async (req, res) => {
 };
 
 // 게시물 조회 (Read) by user_ID
-// @end-point : host/api/posts/by-author/:id
+// @end-point : host/api/posts/:id
 // @method : get
 exports.getPostByPostId = async (req, res) => {
   try {
@@ -76,8 +79,8 @@ exports.getPostByPostId = async (req, res) => {
   }
 };
 
-// 게시물 조회 (Read) by post_id
-// @end-point : host/api/posts/:id
+// 게시물 조회 (Read) by user_id
+// @end-point : host/api/posts/by-author/:id
 // @method : get
 exports.getPostByAuthorId = async (req, res) => {
   try {
@@ -87,8 +90,7 @@ exports.getPostByAuthorId = async (req, res) => {
     if (!post) {
       return res.status(404).json({ error: '해당 유저의 게시물을 찾을 수 없습니다.' });
     }
-
-    res.status(200).json(post);
+    res.status(200).json(post);     
   } catch (error) {
     res.status(500).json({ error: '게시물을 조회하는 중에 오류가 발생했습니다.' });
   }
