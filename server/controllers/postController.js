@@ -96,6 +96,22 @@ exports.getPostByAuthorId = async (req, res) => {
   }
 };
 
+// 게시물 조회 (Read) by category
+// @end-point : host/api/posts/by-category/:category
+// @method : get
+exports.getPostsByCategory = async (req, res) => {
+  try {
+    const category = req.params.category;
+    const post = await Post.find({category:category});
+
+    if (!post) {
+      return res.status(404).json({ error: '해당 카테고리의 게시물을 찾을 수 없습니다.' });
+    }
+    res.status(200).json(post);     
+  } catch (error) {
+    res.status(500).json({ error: '게시물을 조회하는 중에 오류가 발생했습니다.' });
+  }
+};
 
 
 // 게시물 수정 (Update)

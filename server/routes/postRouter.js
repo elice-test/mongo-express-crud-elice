@@ -14,6 +14,9 @@ router.get('/:id', postController.getPostByPostId);
 // 게시물 조회 (Read) by 게시물ID
 router.get('/by-author/:id', postController.getPostByAuthorId);
 
+// 게시물 조회 (Read) by 카테고리
+router.get('/by-category/:category', postController.getPostsByCategory);
+
 // 게시물 수정 (Update)
 router.put('/:id', postController.updatePost);
 
