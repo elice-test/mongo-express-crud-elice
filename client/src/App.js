@@ -1,10 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
 import './Pages/Board';
 import Board from './Pages/Board';
 import Content from './Pages/Content';
 import Edit from './Pages/Edit';
 import Write from './Pages/Write';
+import Home from './Pages/Home';
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,9 +17,10 @@ function App() {
   return (
     <Router>
       <div className='text-center'>
-      <Link style={{textDecoration:'None',color:'black'}} to='/posts'><h2>게시판 이동</h2></Link>
+        <Link style={{ textDecoration: 'None', color: 'black' }} to='/posts'><h2>게시판 이동</h2></Link>
       </div>
       <Routes>
+        <Route path="/" element={<Home></Home>}></Route>
         <Route path="/posts" element={<Board></Board>}></Route>
         <Route path="/posts/write" element={<Write></Write>}></Route>
         <Route path="/posts/:post_id" element={<Content></Content>}></Route>
