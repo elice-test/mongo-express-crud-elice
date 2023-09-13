@@ -5,8 +5,13 @@ import '../styles/Content.css'
 import { Card, Container, Row, Col, Button } from 'react-bootstrap';
 
 
-function Content() {
+function Content({isLoggedIn}) {
     const navigate = useNavigate();
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+    }, [isLoggedIn])
     const { post_id } = useParams();
     const [crntPost, setCrntPost] = useState(null);
 
@@ -23,17 +28,17 @@ function Content() {
             });
     }, [])
 
-    const deletePost = async (p_id)=>{
-        
+    const deletePost = async (p_id) => {
+
         await axios.delete(`http://localhost:3000/api/posts/${post_id}`)
-        .then(response => {
-            // 요청이 성공하면 해당 게시물을 삭제합니다.
-            console.log(response.data);
-        })
-        .catch(error => {
-            // 요청이 실패하면 에러를 처리합니다.
-            console.error('DELETE 요청에 실패했습니다:', error);
-        });
+            .then(response => {
+                // 요청이 성공하면 해당 게시물을 삭제합니다.
+                console.log(response.data);
+            })
+            .catch(error => {
+                // 요청이 실패하면 에러를 처리합니다.
+                console.error('DELETE 요청에 실패했습니다:', error);
+            });
         alert("삭제되었습니다.");
         navigate(-1);
     }
@@ -54,7 +59,7 @@ function Content() {
                                     <p className="text-muted text-right">조회수: {crntPost.view}</p>
                                     <p className="text-muted text-right">카테고리: {crntPost.category.map((e) => { return <span key={e} className="badge bg-secondary ms-2">{e}</span> })}</p>
                                     <Link to={`/edit/${crntPost.author}/${crntPost._id}`}><Button>수정</Button>{' '}</Link>
-                                    <Button variant="danger" onClick={()=>{deletePost(crntPost._id)}}>삭제</Button>
+                                    <Button variant="danger" onClick={() => { deletePost(crntPost._id) }}>삭제</Button>
                                 </Col>
 
                             </Row>

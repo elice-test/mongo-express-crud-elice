@@ -40,8 +40,11 @@ exports.login = async (req, res) => {
         if (isPasswordValid) {
             // 비밀번호가 일치할 때 사용자 정보를 반환합니다.
             
-            console.log('일치');
-            return res.json(user);
+            
+            req.session.isLoggedIn = true; // 로그인 상태를 세션에 저장
+            req.session.user = user;
+            const {email, name} = user;
+            res.status(200).json({user:{email,name}});
         } else {
             // 비밀번호가 일치하지 않을 때 오류 메시지를 반환합니다.
             console.log('불일치');
@@ -53,3 +56,9 @@ exports.login = async (req, res) => {
         return res.status(500).json({ message: '서버 오류가 발생했습니다.' });
     }
 }
+
+ exports.logout = (req, res) => {
+    req.session.isLoggedIn = false; // 로그아웃 상태로 변경
+    console.log("로그아웃 : ",req.session);
+    res.status(200).send('로그아웃 성공!');
+  }

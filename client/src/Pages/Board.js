@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Table, Card } from 'react-bootstrap';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Board.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -12,7 +12,26 @@ function formatDate(inputDate) {
   return formattedDate;
 }
 
-const Board = () => {
+const Board = ({ isLoggedIn }) => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [isLoggedIn])
+
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    console.log(sessionStorage.getItem('user'))
+    const userCheck = sessionStorage.getItem('user')
+    if (!userCheck) {
+      console.log("세션정보가없습니다.");
+      navigate('/');
+    }
+    setUser(userCheck)
+  }, [])
+
+
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const perpage = 10; // 페이지당 항목 수 (고정)
@@ -62,11 +81,11 @@ const Board = () => {
           </tr>
         </thead>
         <tbody>
-          {posts.map((post,index) => (
+          {posts.map((post, index) => (
             <tr key={post._id}>
-              <td>{(currentPage-1)*10+index+1}</td>
+              <td>{(currentPage - 1) * 10 + index + 1}</td>
               <td>
-                <Link style={{textDecoration:'None'}}  to={`/posts/${post._id}`}>{post.title}</Link>
+                <Link style={{ textDecoration: 'None' }} to={`/posts/${post._id}`}>{post.title}</Link>
               </td>
               <td>{post.author}</td>
               <td>{formatDate(post.createdAt)}</td>
@@ -77,14 +96,14 @@ const Board = () => {
         </tbody>
       </Table>
 
-      
+
       <div className='text-center'>
         <Button className="opacity-75" onClick={() => { handlePageChange(currentPage - 1) }}>이전</Button>
         {currentPage}
         <Button className="opacity-75" onClick={() => { handlePageChange(currentPage + 1) }} >다음</Button>
       </div>
       <span className='text-end'>
-       <Link to='/posts/write'> <Button className='btn btn-success mx-5'>글쓰기</Button></Link>
+        <Link to='/posts/write'> <Button className='btn btn-success mx-5'>글쓰기</Button></Link>
       </span>
     </Card>
   );

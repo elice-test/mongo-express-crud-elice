@@ -4,9 +4,15 @@ import axios from 'axios';
 import '../styles/Edit.css';
 import { Form, Card, Container, Row, Col, Button } from 'react-bootstrap';
 
-function Edit() {
+function Edit({ isLoggedIn }) {
+
     const navigate = useNavigate();
-    const {  post_id } = useParams();
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate('/login');
+        }
+    }, [isLoggedIn])
+    const { post_id } = useParams();
     const [newPost, setNewPost] = useState({
         title: '',
         content: '',
@@ -40,14 +46,14 @@ function Edit() {
 
     // 수정 버튼을 클릭할 때의 동작 (PUT 요청 등을 수행)
     const handleEdit = async () => {
-        console.log("바꿀 내용 : ",newPost);
+        console.log("바꿀 내용 : ", newPost);
         await axios.put(`http://localhost:3000/api/posts/${post_id}`, newPost)
             .then(response => {
                 // 요청이 성공했을 때의 동작
                 console.log('성공적으로 PUT 요청을 보냈습니다.', response.data);
                 alert("수정되었습니다.");
                 navigate(-1);
-                
+
             })
             .catch(error => {
                 // 요청이 실패했을 때의 동작
@@ -95,11 +101,11 @@ function Edit() {
                                         />
                                     ))}
                                 </Form.Group>
-                                <br/>
+                                <br />
                                 <Button variant="primary" onClick={handleEdit}>
                                     등록
                                 </Button>
-                                <Button className='ms-2' variant="danger" onClick={()=>{navigate(-1)}}>
+                                <Button className='ms-2' variant="danger" onClick={() => { navigate(-1) }}>
                                     뒤로가기
                                 </Button>
                             </Form>
